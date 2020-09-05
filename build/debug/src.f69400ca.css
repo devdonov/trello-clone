@@ -1,0 +1,21 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+html, html #app, body, body #app {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*# sourceMappingURL=/src.f69400ca.css.map */
