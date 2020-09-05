@@ -1,5 +1,6 @@
 import * as React from "react";
 import { CardContainer } from "../styles";
+import { AddNewItem } from "./AddNewItem";
 
 interface ICard {
     text: string

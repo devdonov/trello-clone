@@ -31600,7 +31600,90 @@ var NewItemInput = _styledComponents.default.input(templateObject_8 || (template
 
 exports.NewItemInput = NewItemInput;
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
-},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/Column.tsx":[function(require,module,exports) {
+},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/NewItemForm.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _styles = require("../styles");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var NewItemForm = function NewItemForm(props) {
+  var _a = React.useState(""),
+      text = _a[0],
+      setText = _a[1];
+
+  var onAdd = props.onAdd;
+  return React.createElement(_styles.NewItemFormContainer, null, React.createElement(_styles.NewItemInput, {
+    onChange: function onChange(e) {
+      return setText(e.target.value);
+    }
+  }), React.createElement(_styles.NewItemButton, {
+    onClick: function onClick(_) {
+      return onAdd(text);
+    }
+  }, "Create"));
+};
+
+var _default = NewItemForm;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../styles":"styles.ts"}],"components/AddNewItem.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AddNewItem = void 0;
+
+var React = _interopRequireWildcard(require("react"));
+
+var _styles = require("../styles");
+
+var _NewItemForm = _interopRequireDefault(require("./NewItemForm"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var AddNewItem = function AddNewItem(_a) {
+  var toggleButtonText = _a.toggleButtonText,
+      _onAdd = _a.onAdd,
+      dark = _a.dark;
+
+  var _b = React.useState(false),
+      showForm = _b[0],
+      setShowForm = _b[1];
+
+  if (showForm) {
+    return React.createElement(_NewItemForm.default, {
+      onAdd: function onAdd(text) {
+        _onAdd(text);
+
+        setShowForm(false);
+      }
+    });
+  }
+
+  return React.createElement(_styles.AddItemButton, {
+    dark: dark,
+    onClick: function onClick(_) {
+      return setShowForm(true);
+    }
+  }, toggleButtonText);
+};
+
+exports.AddNewItem = AddNewItem;
+},{"react":"../node_modules/react/index.js","../styles":"styles.ts","./NewItemForm":"components/NewItemForm.tsx"}],"components/Column.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31612,6 +31695,8 @@ var React = _interopRequireWildcard(require("react"));
 
 var _styles = require("../styles");
 
+var _AddNewItem = require("./AddNewItem");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -31619,11 +31704,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var Column = function Column(_a) {
   var title = _a.title,
       children = _a.children;
-  return React.createElement(_styles.ColumnContainer, null, React.createElement(_styles.ColumnTitle, null, title), children);
+  return React.createElement(_styles.ColumnContainer, null, React.createElement(_styles.ColumnTitle, null, title), children, React.createElement(_AddNewItem.AddNewItem, {
+    dark: true,
+    toggleButtonText: "+ Add another list",
+    onAdd: console.log
+  }));
 };
 
 exports.Column = Column;
-},{"react":"../node_modules/react/index.js","../styles":"styles.ts"}],"components/Card.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../styles":"styles.ts","./AddNewItem":"components/AddNewItem.tsx"}],"components/Card.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31661,6 +31750,8 @@ var _Column = require("./components/Column");
 
 var _Card = require("./components/Card");
 
+var _AddNewItem = require("./components/AddNewItem");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -31678,12 +31769,15 @@ var App = function App() {
     title: "Done"
   }, React.createElement(_Card.Card, {
     text: "Begin to use static typing"
-  })));
+  })), React.createElement(_AddNewItem.AddNewItem, {
+    toggleButtonText: "+ Add another list",
+    onAdd: console.log
+  }));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./styles":"styles.ts","./components/Column":"components/Column.tsx","./components/Card":"components/Card.tsx"}],"../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./styles":"styles.ts","./components/Column":"components/Column.tsx","./components/Card":"components/Card.tsx","./components/AddNewItem":"components/AddNewItem.tsx"}],"../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31801,7 +31895,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53143" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57366" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

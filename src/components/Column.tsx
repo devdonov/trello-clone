@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ColumnContainer, ColumnTitle } from "../styles";
+import { AddNewItem } from "./AddNewItem";
 
 interface IColumn {
     title: string,
@@ -12,5 +13,10 @@ export const Column: React.FC<IColumn> = ({ title, children }) => (
             { title }
         </ColumnTitle>
         { children }
+        <AddNewItem
+            dark
+            toggleButtonText="+ Add another list"
+            onAdd={console.log}
+        />
     </ColumnContainer>
 )

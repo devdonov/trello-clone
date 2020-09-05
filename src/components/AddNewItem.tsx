@@ -14,14 +14,15 @@ export const AddNewItem: React.FC<AddNewItemProps> = ({
     dark
 }) => {
     const [showForm, setShowForm] = React.useState(false);
-
     if (showForm) {
-        <NewItemForm
-            onAdd={text => {
-                onAdd(text);
-                setShowForm(false);
-            }}
-        />
+        return (
+            <NewItemForm
+                onAdd={text => {
+                    onAdd(text);
+                    setShowForm(false);
+                }}
+            />
+        )
     }
 
     return (

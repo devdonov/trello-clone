@@ -11,7 +11,9 @@ const NewItemForm: React.FC<INewItemFormProps> = (props) => {
   return (
     <NewItemFormContainer>
       <NewItemInput onChange={ e => setText(e.target.value) } />
-      <NewItemButton onClick={ _ => onAdd(text) } />
+      <NewItemButton onClick={ _ => onAdd(text) }>
+        Create
+      </NewItemButton>
     </NewItemFormContainer>
   );
 }
