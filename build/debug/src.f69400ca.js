@@ -31600,7 +31600,28 @@ var NewItemInput = _styledComponents.default.input(templateObject_8 || (template
 
 exports.NewItemInput = NewItemInput;
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
-},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/NewItemForm.tsx":[function(require,module,exports) {
+},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"utils/useFocus.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.useFocus = void 0;
+
+var _react = require("react");
+
+var useFocus = function useFocus() {
+  var ref = (0, _react.useRef)(null);
+  (0, _react.useEffect)(function () {
+    var _a;
+
+    (_a = ref.current) === null || _a === void 0 ? void 0 : _a.focus();
+  }, []);
+  return ref;
+};
+
+exports.useFocus = useFocus;
+},{"react":"../node_modules/react/index.js"}],"components/NewItemForm.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31612,6 +31633,8 @@ var React = _interopRequireWildcard(require("react"));
 
 var _styles = require("../styles");
 
+var _useFocus = require("../utils/useFocus");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -31622,7 +31645,9 @@ var NewItemForm = function NewItemForm(props) {
       setText = _a[1];
 
   var onAdd = props.onAdd;
+  var inputRef = (0, _useFocus.useFocus)();
   return React.createElement(_styles.NewItemFormContainer, null, React.createElement(_styles.NewItemInput, {
+    ref: inputRef,
     onChange: function onChange(e) {
       return setText(e.target.value);
     }
@@ -31635,7 +31660,7 @@ var NewItemForm = function NewItemForm(props) {
 
 var _default = NewItemForm;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../styles":"styles.ts"}],"components/AddNewItem.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../styles":"styles.ts","../utils/useFocus":"utils/useFocus.ts"}],"components/AddNewItem.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

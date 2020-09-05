@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { NewItemFormContainer, NewItemButton, NewItemInput } from '../styles';
+import { useFocus } from '../utils/useFocus';
 
 export interface INewItemFormProps {
   onAdd(text: string): void
@@ -8,9 +9,11 @@ export interface INewItemFormProps {
 const NewItemForm: React.FC<INewItemFormProps> = (props) => {
   const [text, setText] = React.useState("");
   const { onAdd } = props;
+  const inputRef = useFocus();
+
   return (
     <NewItemFormContainer>
-      <NewItemInput onChange={ e => setText(e.target.value) } />
+      <NewItemInput ref={inputRef} onChange={ e => setText(e.target.value) } />
       <NewItemButton onClick={ _ => onAdd(text) }>
         Create
       </NewItemButton>
