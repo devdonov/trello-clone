@@ -1,24 +1,36 @@
 import * as React from "react";
 import { ColumnContainer, ColumnTitle } from "../styles";
 import { AddNewItem } from "./AddNewItem";
-import { List } from "../AppStateContext";
+import { useAppState } from "../AppStateContext";
+import { Card } from "./Card";
 
 interface IColumn {
     title: string;
     children?: React.ReactNode;
-    index: List;
+    index: number;
 }
 
-export const Column: React.FC<IColumn> = ({ title, children }) => (
-    <ColumnContainer>
-        <ColumnTitle>
-            { title }
-        </ColumnTitle>
-        { children }
-        <AddNewItem
-            dark
-            toggleButtonText="+ Add another list"
-            onAdd={console.log}
-        />
-    </ColumnContainer>
-)
+export const Column: React.FC<IColumn> = ({ title, index }) => {
+    const {state, dispatch} = useAppState();
+    const {id: listId, tasks} = state.lists[index];
+    
+    return (
+        <ColumnContainer>
+            <ColumnTitle>
+                { title }
+            </ColumnTitle>
+
+            {tasks.map(task => (
+                <Card text={task.text} key={task.id} />
+            ))}
+
+            <AddNewItem
+                dark
+                toggleButtonText="+ Add another list"
+                onAdd={text => {
+                    dispatch({ type: "ADD_TASK", payload: { listId, text } })
+                }}
+            />
+        </ColumnContainer>
+    )
+}
