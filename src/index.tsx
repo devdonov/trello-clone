@@ -1,6 +1,12 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import App from "./app";
 import "./styles.sass";
+import { AppStateProvider } from "./AppStateContext";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(
+  <AppStateProvider>
+    <App />
+  </AppStateProvider>,
+  document.getElementById("app")
+);
