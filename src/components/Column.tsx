@@ -25,7 +25,7 @@ export const Column: React.FC<IColumn> = ({ text, index, isPreview }) => {
     return (
         <ColumnContainer
             ref={ref}
-            isDragging={!!state.draggedItem && state.draggedItem.type === DRAG_TYPES.COLUMN}
+            isDragging={!!state.draggedItem}
             isPreview={isPreview}
             isHidden={isHidden(isPreview, state.draggedItem, DRAG_TYPES.COLUMN, listId)}
         >
