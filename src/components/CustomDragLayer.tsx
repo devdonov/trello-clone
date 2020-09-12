@@ -33,6 +33,7 @@ export const CustomDragLayer: React.FC = () => {
       return (
         <CustomDragLayerContainer>
           <div style={getItemStyle(currentOffset)}>
+            {/* TODO: Prevent text selection */}
             <Card
               id={item.id}
               columnId={item.columnId}
