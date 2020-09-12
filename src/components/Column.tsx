@@ -3,21 +3,34 @@ import { ColumnContainer, ColumnTitle } from "../styles";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "../AppStateContext";
 import { Card } from "./Card";
+import { useItemDragDrop } from "../hooks/useItemDragDrop";
+import { isHidden } from "../utils/isHidden";
+import { DRAG_TYPES } from "../types";
 
 interface IColumn {
-    title: string;
+    text: string;
     children?: React.ReactNode;
     index: number;
+    id: string;
+    isPreview?: boolean;
 }
 
-export const Column: React.FC<IColumn> = ({ title, index }) => {
-    const {state, dispatch} = useAppState();
-    const {id: listId, tasks} = state.lists[index];
-    
+export const Column: React.FC<IColumn> = ({ text, index, isPreview }) => {
+    const { state, dispatch } = useAppState();
+    const { id: listId, tasks } = state.lists[index];
+    const { drag, drop } = useItemDragDrop({ type: DRAG_TYPES.COLUMN, id: listId, index, text }, index);
+    const ref = React.useRef<HTMLDivElement>(null);
+    drag(drop(ref));
+
     return (
-        <ColumnContainer>
+        <ColumnContainer
+            ref={ref}
+            isDragging={!!state.draggedItem && state.draggedItem.type === DRAG_TYPES.COLUMN}
+            isPreview={isPreview}
+            isHidden={isHidden(isPreview, state.draggedItem, DRAG_TYPES.COLUMN, listId)}
+        >
             <ColumnTitle>
-                { title }
+                { text }
             </ColumnTitle>
 
             {tasks.map(task => (
