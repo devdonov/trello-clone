@@ -3,7 +3,7 @@ import { ColumnContainer, ColumnTitle } from "../styles";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "../AppStateContext";
 import { Card } from "./Card";
-import { useItemDragDrop } from "../hooks/useItemDragDrop";
+import { useListDragDrop } from "../hooks/useListDragDrop";
 import { isHidden } from "../utils/isHidden";
 import { DRAG_TYPES } from "../types";
 
@@ -18,7 +18,7 @@ interface IColumn {
 export const Column: React.FC<IColumn> = ({ text, index, isPreview }) => {
     const { state, dispatch } = useAppState();
     const { id: listId, tasks } = state.lists[index];
-    const { drag, drop } = useItemDragDrop({ type: DRAG_TYPES.COLUMN, id: listId, index, text }, index);
+    const { drag, drop } = useListDragDrop({ type: DRAG_TYPES.COLUMN, id: listId, index, text }, { index, id: listId });
     const ref = React.useRef<HTMLDivElement>(null);
     drag(drop(ref));
 
@@ -33,8 +33,8 @@ export const Column: React.FC<IColumn> = ({ text, index, isPreview }) => {
                 { text }
             </ColumnTitle>
 
-            {tasks.map(task => (
-                <Card text={task.text} key={task.id} />
+            {tasks.map((task, taskIndex) => (
+                <Card columnId={listId} id={task.id} index={taskIndex} text={task.text} key={task.id} />
             ))}
 
             <AddNewItem
